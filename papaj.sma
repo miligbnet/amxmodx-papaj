@@ -22,13 +22,26 @@ public plugin_precache() {
 
 public plugin_init() {
     register_plugin(PLUGIN, VERSION, AUTHOR)
-    register_concmd("papaj2137", "cmd_papaj", ADMIN_KICK, "- Trigger papaj effect")
+    register_concmd("papaj2137", "cmd_papaj")
 
     // Check time every 30 seconds for auto-trigger at 21:37
     set_task(30.0, "check_time", 2138, "", 0, "b")
 }
 
 public cmd_papaj(id) {
+    // Allow only clients with ADMIN_BAN to run this command
+    if (id <= 0) {
+        // Console or invalid id: deny
+        client_print(0, print_chat, "[Papaj] Komenda dostepna tylko dla adminow z flaga ADMIN_BAN.")
+        return PLUGIN_HANDLED
+    }
+
+    new flags = get_user_flags(id)
+    if (!(flags & ADMIN_BAN)) {
+        client_print(id, print_chat, "[Papaj] Nie masz uprawnien (wymagana flaga ADMIN_BAN).")
+        return PLUGIN_HANDLED
+    }
+
     // Trigger the papaj effect
     trigger_papaj_effect()
 
@@ -102,6 +115,8 @@ public trigger_papaj_effect() {
     new players[32], num
     get_players(players, num, "a")
     for(new i = 0; i < num; i++) {
+        client_cmd(players[i], "stopsound")
+        client_cmd(players[i], "mp3 stop")
         client_cmd(players[i], "mp3 play sound/%s", SOUND_FILE)
     }
 
