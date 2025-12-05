@@ -62,7 +62,7 @@ The plugin automatically activates at **21:37** (9:37 PM) server time every day.
 Players can trigger the effect manually:
 
 1. Open console (press `~` key)
-2. Type: `papaj`
+2. Type: `papaj2137`
 3. Press Enter
 
 **Note:** The console command is hidden - other players won't see who activated it in chat.

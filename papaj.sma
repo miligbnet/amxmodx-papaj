@@ -22,7 +22,7 @@ public plugin_precache() {
 
 public plugin_init() {
     register_plugin(PLUGIN, VERSION, AUTHOR)
-    register_concmd("papaj", "cmd_papaj2137")
+    register_concmd("papaj2137", "cmd_papaj")
 
     // Check time every 30 seconds for auto-trigger at 21:37
     set_task(30.0, "check_time", 2138, "", 0, "b")
